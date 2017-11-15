@@ -1,4 +1,4 @@
-# awspull
+# awsecr
 
 Container helps pulling images from AWS ECR without having to login. It helps
 to create automated environments.
@@ -43,19 +43,23 @@ Configure templates to setup automation inside container.
 ### Entering in container
 
 ```bash
-$ docker run -ti --rm --name awspull -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awspull
+$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr
 # pull myimage:1.0.0
 ```
 
 ### Running directly 
 
 ```bash
-$ docker run -ti --rm --name awspull -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awspull pull myimage:1.0.0 
+$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr pull myimage:1.0.0 
 ```
 
 ### Running as service 
 
 ```bash
-$ docker run -tid --name awspull -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awspull
-$ docker exec -ti awspull pull myimage:1.0.0  
+$ docker run -tid --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr
+$ docker exec -ti awsecr pull myimage:1.0.0  
 ```
+
+### Suport
+
+You can use **pull** and **push**.
