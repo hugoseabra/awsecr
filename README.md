@@ -1,6 +1,6 @@
 # awsecr
 
-Container helps pulling images from AWS ECR without having to login. It helps
+Container helps pulling images from AWS ECR without having to manually login. It helps
 to create automated environments.
 
 When defining a workflow for you team, it is very common to push images to repository (public or private) after everything is alright and, then pull in server to start a service to provide applications in productions.
@@ -43,20 +43,20 @@ Configure templates to setup automation inside container.
 ### Entering in container
 
 ```bash
-$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr
+$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr
 # pull myimage:1.0.0
 ```
 
 ### Running directly 
 
 ```bash
-$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr pull myimage:1.0.0 
+$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr pull myimage:1.0.0 
 ```
 
 ### Running as service 
 
 ```bash
-$ docker run -tid --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra/awsecr
+$ docker run -tid --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr
 $ docker exec -ti awsecr pull myimage:1.0.0  
 ```
 

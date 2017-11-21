@@ -1,8 +1,8 @@
 import os
 
-from file import create
+from renderer import create
 
-BASE_DIR = '/usr/local/etc/awspull'
+BASE_DIR = '/usr/local/etc/awsecr'
 TEMPLATE_DIR = BASE_DIR + '/templates'
 CONF_DIR = BASE_DIR + '/conf'
 HOME_DIR = '/root'
@@ -56,5 +56,3 @@ create(TEMPLATE_DIR + '/ecr-config', '/root/.aws/ecr', env_dict)
 
 # docker configs
 create(CONF_DIR + '/docker-config.json', '/root/.docker/config.json', env_dict)
-
-

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import os
 import docker
@@ -31,7 +33,7 @@ client = docker.from_env()
 
 for image in client.images.list():
     if repo_name in image.attrs.get('RepoTags'):
-        print("Repository já existe")
+        print("Repository já existe.")
         exit(1)
 
 os.system('docker pull {0}/{1}:{2}'.format(link, repo_name, tag))

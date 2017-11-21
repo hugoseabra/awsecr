@@ -52,6 +52,6 @@ if ! command_exists docker-credential-ecr-login; then
 fi
 
 echo; echo;
-python3 setup.py
+python3 /setup.py
 
 sh

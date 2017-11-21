@@ -1,2 +1,5 @@
 Dockerfile
 .git
+.env
+.idea
+.dockerignore

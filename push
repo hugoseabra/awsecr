@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-import sys
 import os
-import docker
+import sys
 from configparser import ConfigParser
 
 config_file = '/root/.aws/ecr'
@@ -27,13 +26,5 @@ if ':' in repo_name:
 else:
     tag = 'latest'
 
-print("Preparing pull from '{0}/{1}:{2}'".format(link, repo_name, tag))
-
-client = docker.from_env()
-
-for image in client.images.list():
-    if repo_name in image.attrs.get('RepoTags'):
-        print("Repository já existe")
-        exit(1)
-
+print("Preparing push to '{0}/{1}:{2}'".format(link, repo_name, tag))
 os.system('docker push {0}/{1}:{2}'.format(link, repo_name, tag))
