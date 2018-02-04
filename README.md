@@ -38,28 +38,33 @@ Configure templates to setup automation inside container.
 
 # Usage
 
-**IMPORTANT:** you must provide a volume: `v /var/run/docker.sock:/var/run/docker.sock`
+You can use **list**, **pull** and **push**. Check it out!
 
-### Entering in container
+**IMPORTANT:** you must provide a volume: `-v /var/run/docker.sock:/var/run/docker.sock`
 
-```bash
-$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr
-# pull myimage:1.0.0
-```
-
-### Running directly 
+## Publishing an image
 
 ```bash
-$ docker run -ti --rm --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr pull myimage:1.0.0 
+$ docker exec -ti awsecr push mynamespace/myimage:1.0.0  
 ```
 
-### Running as service 
+## Pulling an image
 
 ```bash
-$ docker run -tid --name awsecr -e AWS_KEY <key> -e AWS_SECRET <secret> -e AWS_ACCOUNT_ID <account-id> -v /var/run/docker.sock:/var/run/docker.sock hugoseabra19/awsecr
-$ docker exec -ti awsecr pull myimage:1.0.0  
+$ docker exec -ti awsecr pull mynamespace/myimage:1.0.0  
 ```
 
-### Suport
+## Listing available images already published
 
-You can use **pull** and **push**.
+```bash
+$ docker exec -ti awsecr list-images mynamespace
+```
+
+## Last published tag
+
+If you tags as provided using [semver](https://semver.org/), this commands
+provides the higher version as tag.
+
+```bash
+$ docker exec -ti awsecr last-image mynamespace
+```

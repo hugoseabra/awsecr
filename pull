@@ -5,7 +5,7 @@ import os
 import docker
 from configparser import ConfigParser
 
-config_file = '/root/.aws/ecr'
+config_file = '{}/.aws/ecr'.format(os.getenv("HOME"))
 config = ConfigParser()
 
 with open(config_file) as f:
@@ -15,7 +15,7 @@ with open(config_file) as f:
 link = config.get('repository', 'link')
 
 if len(sys.argv) < 2:
-    repo_name = input("Repository name (<alias>:<tag>):")
+    repo_name = input("Repository name (<alias>:<tag>): ")
 
 else:
     repo_name = sys.argv[1]
