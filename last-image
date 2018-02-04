@@ -50,4 +50,4 @@ for image in response['imageIds']:
     else:
         max_version = semver.max_ver(max_version, tag)
 
-print("{}/{}:{}\n".format(link, repo_name, max_version))
+print("{}/{}:{}".format(link, repo_name, max_version))
