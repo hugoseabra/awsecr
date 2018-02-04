@@ -27,12 +27,10 @@ print("Repository: {0}".format(repo_name))
 if ':' in repo_name:
     repo_name, tag = repo_name.split(':')
 
-print("Listing all images and tags from '{}'".format(repo_name))
-
 client = boto3.client('ecr')
 
 response = client.list_images(
-    registryId='871800672816',
+    registryId=os.getenv('AWS_ACCOUNT_ID'),
     repositoryName=repo_name,
     filter={
         'tagStatus': 'TAGGED'
