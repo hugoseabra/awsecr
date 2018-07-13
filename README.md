@@ -1,12 +1,26 @@
 # awsecr
 
-Container helps pulling images from AWS ECR without having to manually login. It helps
-to create automated environments.
+Container helps managing images from AWS ECR without having to manually login with AWS CLI.
 
-When defining a workflow for you team, it is very common to push images to repository (public or private) after everything is alright and, then pull in server to start a service to provide applications in productions.
+When defining a workflow for you team, it is very common to push images to repository
+(public or private) after everything is alright and, then pull in server to start a
+service to provide applications in productions.
 
-There are good solutions for docker-login for private repositories. This images provides a way to fluid log-in into AWS ECR repository to pull and push images.
+There are good solutions for docker-login for private repositories.
+This images provides a way to fluid log-in into AWS ECR repository to pull and push images.
 
+# Usage
+
+With this container you do some good fastly:
+
+* pull images from AWS ECR;
+* push images to AWS ECR;
+* list all tagged images hosted AWS ECR (tagged only) - _I do not care about UNTAGGED images_;
+* get the last image (most recent according to SEMVER algorithm) hosted in AWS ECR;  
+
+Check it out!
+
+**IMPORTANT:** you must provide a volume: `-v /var/run/docker.sock:/var/run/docker.sock`
 
 ## Dependencies
 
@@ -35,12 +49,6 @@ Configure templates to setup automation inside container.
 **AWS_ACCOUNT_ID** your account key, you can see it in ECR. <account-key>.dkr.ecr.<region>.amazonaws.com
 **AWS_REGION** AWS region (Default: us-east-1)
 **AWS_FORMAT** AWS Cli output format (Default: json)
-
-# Usage
-
-You can use **list**, **pull** and **push**. Check it out!
-
-**IMPORTANT:** you must provide a volume: `-v /var/run/docker.sock:/var/run/docker.sock`
 
 ## Publishing an image
 
