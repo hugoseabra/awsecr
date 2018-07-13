@@ -29,23 +29,37 @@ if ':' in repo_name:
 
 client = boto3.client('ecr')
 
-response = client.list_images(
-    registryId=os.getenv('AWS_ACCOUNT_ID'),
-    repositoryName=repo_name,
-    filter={
-        'tagStatus': 'TAGGED'
-    }
-)
-
 max_version = None
-for image in response['imageIds']:
-    tag = image['imageTag']
-    if tag == 'latest':
-        continue
+next_token = ''
 
-    if not max_version:
-        max_version = tag
+while next_token is not None:
+
+    kwargs = {
+        'registryId': os.getenv('AWS_ACCOUNT_ID'),
+        'repositoryName': repo_name,
+        'filter': {
+            'tagStatus': 'TAGGED'
+        }
+    }
+
+    if next_token:
+        kwargs['nextToken'] = next_token
+
+    response = client.list_images(**kwargs)
+
+    if 'nextToken' in response and response['nextToken']:
+        next_token = response['nextToken']
     else:
-        max_version = semver.max_ver(max_version, tag)
+        next_token = None
+
+    for image in response['imageIds']:
+        tag = image['imageTag']
+        if tag == 'latest':
+            continue
+
+        if not max_version:
+            max_version = tag
+        else:
+            max_version = semver.max_ver(max_version, tag)
 
 print("{}/{}:{}".format(link, repo_name, max_version))

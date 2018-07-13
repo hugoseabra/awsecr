@@ -32,19 +32,29 @@ print("Listing all images from '{}'".format(repo_name))
 
 client = boto3.client('ecr')
 
-response = client.list_images(
-    registryId=os.getenv('AWS_ACCOUNT_ID'),
-    repositoryName=repo_name,
-    filter={
-        'tagStatus': 'TAGGED'
-    }
-)
-
-divider_size = 0
 output = ''
-for image in response['imageIds']:
-    result = "{}/{}:{}\n".format(link, repo_name, image['imageTag'])
-    divider_size = len(result)
-    output += result
+next_token = ''
+
+while next_token is not None:
+    kwargs = {
+        'registryId': os.getenv('AWS_ACCOUNT_ID'),
+        'repositoryName': repo_name,
+        'filter': {
+            'tagStatus': 'TAGGED'
+        }
+    }
+
+    if next_token:
+        kwargs['nextToken'] = next_token
+
+    response = client.list_images(**kwargs)
+
+    if 'nextToken' in response and response['nextToken']:
+        next_token = response['nextToken']
+    else:
+        next_token = None
+
+    for image in response['imageIds']:
+        output += "{}/{}:{}\n".format(link, repo_name, image['imageTag'])
 
 print(output)
