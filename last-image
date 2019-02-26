@@ -29,7 +29,7 @@ if ':' in repo_name:
 
 client = boto3.client('ecr')
 
-max_version = None
+max_version = '0.0.0'
 next_token = ''
 
 while next_token is not None:
@@ -54,7 +54,7 @@ while next_token is not None:
 
     for image in response['imageIds']:
         tag = image['imageTag']
-        if tag == 'latest':
+        if tag == 'latest' or tag is None:
             continue
 
         if not max_version:
